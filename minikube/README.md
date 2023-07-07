@@ -8,8 +8,9 @@ minikube profile list
 ## crear cluster con multiples nodos
 minikube start --driver=docker -p cluster-desa --nodes=2
 
-minikube profile list    
-```sh                               
+   
+```sh
+minikube profile list                          
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
 |   Profile    | VM Driver | Runtime |      IP      | Port | Version | Status  | Nodes | Active |
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
