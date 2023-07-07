@@ -8,6 +8,14 @@ minikube profile list
 ## crear cluster con multiples nodos
 minikube start --driver=docker -p cluster-desa --nodes=2
 
+minikube profile list                                   
+|--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
+|   Profile    | VM Driver | Runtime |      IP      | Port | Version | Status  | Nodes | Active |
+|--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
+| cluster-desa | docker    | docker  | 192.168.49.2 | 8443 | v1.26.3 | Running |     2 |        |
+|--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
+
+
 ## help
 minikube provisions and manages local Kubernetes clusters optimized for development workflows.
 
