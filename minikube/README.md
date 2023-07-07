@@ -6,9 +6,12 @@ minikube ip
 minikube profile list
 
 ## crear cluster con multiples nodos
-minikube start --driver=docker -p cluster-desa --nodes=2
 
-   
+```sh
+minikube start --driver=docker -p cluster-desa --nodes=2
+```
+
+
 ```sh
 minikube profile list                          
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
@@ -16,6 +19,10 @@ minikube profile list
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
 | cluster-desa | docker    | docker  | 192.168.49.2 | 8443 | v1.26.3 | Running |     2 |        |
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
+```
+### actualizar cluster cambiar cpu y memoria
+```sh
+minikube config set memory 4G -p cluster-desa
 ```
 
 ## help
