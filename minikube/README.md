@@ -11,7 +11,7 @@ minikube profile cluster-desa
 ## crear cluster con multiples nodos
 
 ```sh
-minikube start --driver=docker -p cluster-desa --nodes=2
+minikube start --driver=docker -p cluster-desa --nodes=2 --memory 4G --cpus 2
 ```
 
 
@@ -23,27 +23,31 @@ minikube profile list
 | cluster-desa | docker    | docker  | 192.168.49.2 | 8443 | v1.26.3 | Running |     2 |        |
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
 ```
+
 ### actualizar cluster cambiar cpu y memoria
 Este cambio hace que se borre el nodo junto con todo lo que tengamos dentro
 ```sh
-minikube config set memory 4G -p cluster-desa
+minikube config set memory 6G 
 ❗  These changes will take effect upon a minikube delete and then a minikube start
-```
 
-```sh
-minikube config set cpus 2 -p cluster-desa
+minikube config set cpus 3
 ❗  These changes will take effect upon a minikube delete and then a minikube start
 ```
 En este archivo quedan los cambios que acabamos de realizar
 ```sh
 cat .minikube/config/config.json                           
 {
-    "cpus": "2",
-    "memory": "4G"
+    "cpus": "3",
+    "memory": "6G"
 }                                                                                                                            
 ```
 
-Para aplicar los cambios de cpu y memoria debemos reiniciar el nodo
+Para aplicar los cambios de cpu y memoria se debe detener el nodo
+```sh
+minikube stop
+minikube delete
+minikube start --driver=docker --nodes=2 --memory 4G --cpus 2
+```
 
 
 ## help
