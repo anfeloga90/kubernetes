@@ -1,10 +1,13 @@
 # Minikube
 ## Comandos
+```sh
 minikube status
 minikube logs
 minikube ip
 minikube profile list
-
+minikube profile cluster-desa
+    ✅  minikube profile was successfully set to cluster-desa
+```
 ## crear cluster con multiples nodos
 
 ```sh
@@ -21,9 +24,27 @@ minikube profile list
 |--------------|-----------|---------|--------------|------|---------|---------|-------|--------|
 ```
 ### actualizar cluster cambiar cpu y memoria
+Este cambio hace que se borre el nodo junto con todo lo que tengamos dentro
 ```sh
 minikube config set memory 4G -p cluster-desa
+❗  These changes will take effect upon a minikube delete and then a minikube start
 ```
+
+```sh
+minikube config set cpus 2 -p cluster-desa
+❗  These changes will take effect upon a minikube delete and then a minikube start
+```
+En este archivo quedan los cambios que acabamos de realizar
+```sh
+cat .minikube/config/config.json                           
+{
+    "cpus": "2",
+    "memory": "4G"
+}                                                                                                                            
+```
+
+Para aplicar los cambios de cpu y memoria debemos reiniciar el nodo
+
 
 ## help
 minikube provisions and manages local Kubernetes clusters optimized for development workflows.
