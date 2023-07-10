@@ -62,8 +62,23 @@ Ejemplo de POD con KUBERNETES y YAML
 ```
 
 
+# multi pod
 
-  
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multi
+spec:
+  containers:
+  - name: web
+    image: nginx
+    ports:
+    - containerPort: 80  
+  - name: frontal
+    image: alpine
+    command: ["watch", "-n5", "ping",  "localhost"]
+```
 
 
 
