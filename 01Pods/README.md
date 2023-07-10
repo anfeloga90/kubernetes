@@ -13,6 +13,7 @@ kubectl exec nginx1 -it -- bash
 kubectl logs nginx1
 kubectl logs nginx1 -f --tail=20
 kubectl port-forwarding nginx1 9999:80
+kubectl delete pod nginx --now              #Para borrar el pod inmediatamente
 ```
 
 ```sh
@@ -105,6 +106,9 @@ Ejemplo de POD con KUBERNETES y YAML
 
 # multi pod
 
+Crea un pod con dos contenedors, 1 nginx y 1 frontal que le hace ping cada 5 segundos
+
+02-multi.yaml
 ```yaml
 apiVersion: v1
 kind: Pod
@@ -121,10 +125,30 @@ spec:
     command: ["watch", "-n5", "ping",  "localhost"]
 ```
 
-
-
-
-
 ```sh
+kubectl apply -f 02-multi.yaml 
 
+kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+multi   2/2     Running   0          41s
+
+kubectl logs multi -c frontal
+```
+
+
+## restartPolicy (Always,OnFailure,Never)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: never
+  labels:
+    app: app1
+spec:
+  containers:
+  - name: never
+    image: busybox
+    command: ['sh', '-c', 'echo Ejemplo de pod fallado  && exit 1']
+  restartPolicy: Always
 ```
