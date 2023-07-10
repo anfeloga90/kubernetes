@@ -27,6 +27,7 @@ curl localhost:31195
 ```
 
 ## 01 nginx
+01-Dockerfile
 ```dockerfile
 ##Descargamos UBUNTU
 FROM ubuntu
@@ -52,7 +53,7 @@ ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
 ##Exponemos el Puerto 80
 EXPOSE 80
 ```
-
+01-nginx.yaml 
 ```yaml
 apiVersion: v1
 kind: Pod
