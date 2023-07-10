@@ -30,14 +30,84 @@ apache-855464645-6ff5g   1/1     Running   0          2m
 
 ```
 
+## ver deployment
+```sh
+kubectl describe deploy apache
+Name:                   apache
+Namespace:              default
+CreationTimestamp:      Mon, 10 Jul 2023 17:19:09 -0400
+Labels:                 app=apache
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=apache
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=apache
+  Containers:
+   httpd:
+    Image:        httpd
+    Port:         <none>
+    Host Port:    <none>
+    Environment:  <none>
+    Mounts:       <none>
+  Volumes:        <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   apache-855464645 (1/1 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  6m36s  deployment-controller  Scaled up replica set apache-855464645 to 1
 
+```
 
+deploy_nginx.yaml
+```yaml
+apiVersion: apps/v1 # i se Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Deployment
+metadata:
+  name: nginx-d
+spec:
+  selector:   #permite seleccionar un conjunto de objetos que cumplan las condicione
+    matchLabels:
+      app: nginx
+  replicas: 2 # indica al controlador que ejecute 2 pods
+  template:   # Plantilla que define los containers
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
 
-
-
-
-
+```
 
 ```sh
+kubectl create -f deploy_nginx.yaml
+deployment.apps/nginx-d created
 
+kubectl get pods
+NAME                       READY   STATUS    RESTARTS   AGE
+apache-855464645-6ff5g     1/1     Running   0          18m
+nginx-d-7759cfdc55-6lqjh   1/1     Running   0          13s
+nginx-d-7759cfdc55-hbvx7   1/1     Running   0          13s
+
+kubectl get rs  
+NAME                 DESIRED   CURRENT   READY   AGE
+apache-855464645     1         1         1       18m
+nginx-d-7759cfdc55   2         2         2       19s
+
+kubectl get deploy
+NAME      READY   UP-TO-DATE   AVAILABLE   AGE
+apache    1/1     1            1           18m
+nginx-d   2/2     2            2           22s
 ```
