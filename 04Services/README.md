@@ -26,7 +26,7 @@ kubectl expose deploy apache1 --port=80 --type=NodePort
 ```
 
 # Crear service
-```sh
+```bash
 kubectl create deployment apache1 --image=httpd
 deployment.apps/apache1 created
 
