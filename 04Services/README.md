@@ -25,7 +25,7 @@ kubectl create deployment apache1 --image=httpd
 kubectl expose deploy apache1 --port=80 --type=NodePort
 ```
 
-# Crear service
+# Crear service type NodePort
 ```bash
 kubectl create deployment apache1 --image=httpd
 deployment.apps/apache1 created
@@ -56,18 +56,97 @@ curl localhost:30212
 <html><body><h1>It works!</h1></body></html>
 ```
 
+## Practica
+```sh
+ls 
+Dockerfile
+README.md
+completo.yaml
+deploy1_web_novale.yaml
+deploy_web.yaml
+servicios.pdf
+web
+web-svc.yaml
 
+#ls web
+css
+fonts
+img
+index.html
+js
+responsive.css
+style.css
+```
 
-
-
-
-
-
-
-```yaml
+Dockerfile
+```Dockerfile
+##Descargamos una versión concreta de UBUNTU, a través del tag
+FROM ubuntu
+MAINTAINER Apasoft Formacion "apasoft.formacion@gmail.com"
+##Actualizamos el sistema
+RUN apt-get update
+##Instalamos HTTPD Apache 2
+RUN apt-get install -y apache2
+##Creamos un fichero index.html en el directorio por defecto de nginx
+ADD web /var/www/html
+##Exponemos el Puerto 80
+EXPOSE 80
+##Arrancamos Apache a través de ENTRYPOINT para que no pueda ser modificado en la creación del contenedor
+CMD /usr/sbin/apachectl -D FOREGROUND
 
 ```
 
 ```sh
+docker build -t apasoft/web .
+```
 
+Desplegar en yaml
+```yaml
+#############
+# DEPLOYMENT  
+#############
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: web-d
+spec:
+  selector:   #permite seleccionar un conjunto de objetos que cumplan las condicione
+    matchLabels:
+      app: web
+  replicas: 2 # indica al controlador que ejecute 2 pods
+  template:   # Plantilla que define los containers
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: apache
+        image: apasoft/web:latest
+        ports:
+        - containerPort: 80
+---
+
+#############
+# SERVICIO  
+#############
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  labels:
+     app: web
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30002
+    protocol: TCP
+  selector:
+     app: web
+```
+
+```sh
+kubectl apply -f completo.yaml 
+deployment.apps/web-d created
+service/web-svc created
 ```
