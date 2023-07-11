@@ -23,5 +23,6 @@ kubectl delete pods -l estado=desarrollo
 kubectl create deployment apache --image=httpd
 kubectl scale deploy nginx-d --replicas=5
 
+kubectl get endpoints
 
 ```
