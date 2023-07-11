@@ -111,3 +111,18 @@ NAME      READY   UP-TO-DATE   AVAILABLE   AGE
 apache    1/1     1            1           18m
 nginx-d   2/2     2            2           22s
 ```
+
+### Escalar 
+```sh
+kubectl scale deploy nginx-d --replicas=5
+deployment.apps/nginx-d scaled
+
+kubectl get deploy,rs
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/apache    1/1     1            1           29m
+deployment.apps/nginx-d   5/5     5            5           11m
+
+NAME                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/apache-855464645     1         1         1       29m
+replicaset.apps/nginx-d-7759cfdc55   5         5         5       11m
+```

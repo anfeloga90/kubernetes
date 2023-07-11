@@ -1,5 +1,11 @@
 # Pods
+En pocas palabras, un "pod" en Kubernetes (K8s) es la unidad básica de ejecución. Es un grupo de uno o más contenedores que se ejecutan juntos en un entorno compartido.
 
+Un pod contiene al menos un contenedor, que puede ser una aplicación o un servicio, y también puede incluir contenedores adicionales que brinden servicios complementarios, como almacenamiento compartido, registros o proxies. Estos contenedores dentro del pod comparten recursos y se ejecutan en la misma máquina virtual o física dentro del clúster de Kubernetes.
+
+Los pods son efímeros y se crean y destruyen de manera dinámica en respuesta a las necesidades de escalado, actualizaciones o fallos. Además, cada pod tiene su propia dirección IP y puede comunicarse con otros pods en el clúster a través de la red de Kubernetes.
+
+En resumen, un pod en Kubernetes es un grupo de uno o más contenedores que se ejecutan juntos en un entorno compartido, proporcionando una unidad de ejecución flexible y escalable en el clúster de Kubernetes.
 ## Comandos
 
 ```sh
