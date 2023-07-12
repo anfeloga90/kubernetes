@@ -24,5 +24,10 @@ kubectl create deployment apache --image=httpd
 kubectl scale deploy nginx-d --replicas=5
 
 kubectl get endpoints
+kubectl expose deploy apache1 --port=80 --type=NodePort
+# namespace por defecto
+kubectl config set-context --current --namespace=n1
 
+kubectl get events -n n1
+kubectl get events -n n1 --field-selector type="Warning"
 ```
