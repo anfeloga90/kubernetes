@@ -30,4 +30,10 @@ kubectl config set-context --current --namespace=n1
 
 kubectl get events -n n1
 kubectl get events -n n1 --field-selector type="Warning"
+
+#Rolling update
+kubectl rollout history deploy nginx-d
+kubectl rollout history deploy nginx-d --revision=1
+kubectl rollout status deployment nginx-d
+kubectl rollout undo deployment nginx-d --to-revision=2
 ```
