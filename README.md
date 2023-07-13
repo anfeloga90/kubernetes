@@ -36,4 +36,7 @@ kubectl rollout history deploy nginx-d
 kubectl rollout history deploy nginx-d --revision=1
 kubectl rollout status deployment nginx-d
 kubectl rollout undo deployment nginx-d --to-revision=2
+
+# configmap
+k create configmap datos-mysql-env --from-env-file datos_mysql.properties 
 ```
