@@ -9,8 +9,8 @@ spec:
       env:
         # Define the environment variable
         - name: DATOS_MYSQL
-          valueFrom:
+          valueFrom: # para cargar todas las variables como una sola en bloque
             configMapKeyRef:
-              name: datos-mysql
+              name: datos-mysql-env
               key: datos_mysql.properties
   restartPolicy: Never
