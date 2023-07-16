@@ -19,6 +19,7 @@ kubectl get pods --show-labels -l estado=desarrollo
 kubectl get pods --show-labels -l estado!=desarrollo
 kubectl get pods --show-labels -l 'estado in (desarrollo,produccion)'
 kubectl delete pods -l estado=desarrollo
+kubectl get quota
 
 kubectl create deployment apache --image=httpd
 kubectl scale deploy nginx-d --replicas=5
@@ -39,4 +40,28 @@ kubectl rollout undo deployment nginx-d --to-revision=2
 
 # configmap
 k create configmap datos-mysql-env --from-env-file datos_mysql.properties 
+
+# instalar metrics server
+helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+helm upgrade --install metrics-server metrics-server/metrics-server
+# "Failed to scrape node" err="Get \"https://192.168.65.4:10250/metrics/resource\": x509: cannot validate certificate for 192.168.65.4 because it doesn't contain any IP SANs" node="docker-desktop"
+# para solucionarlo debemos editar el deployment y agregarle la siguiente linea --kubelet-insecure-tls
+```
+
+```yalm
+      containers:
+        - name: metrics-server
+          image: registry.k8s.io/metrics-server/metrics-server:v0.6.3
+          args:
+            - '--kubelet-insecure-tls'
+            - '--secure-port=10250'
+            - '--cert-dir=/tmp'
+            - >-
+              --kubelet-preferred-address-types=InternalDNS,InternalIP,ExternalDNS,ExternalIP,Hostname
+            - '--kubelet-use-node-status-port'
+            - '--metric-resolution=30s'
+```
+
+```sh
+
 ```
