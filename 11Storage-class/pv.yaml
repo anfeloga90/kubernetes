@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: volume1
+  labels:
+    type: local
+    curso: kubernetes
+spec:
+  storageClassName: sc-discos-locales
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/datos"
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: volume2
+  labels:
+    type: local
+    curso: kubernetes
+spec:
+  storageClassName: sc-discos-locales
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/datos"
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: volume3
+  labels:
+    type: local
+    curso: kubernetes
+spec:
+  storageClassName: sc-discos-locales
+  capacity:
+    storage: 6Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/datos"
+
