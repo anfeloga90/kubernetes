@@ -1,0 +1,42 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+   name: ingress-multi-hosts
+   annotations:
+     nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+   rules:
+   - host: desarrollo.curso.com
+     http:
+       paths:
+       - path: /apache
+         pathType: Exact
+         backend:
+           service:
+             name: apache
+             port:
+               number: 80
+       - path: /nginx
+         pathType: Exact
+         backend:
+           service:
+             name: nginx
+             port:
+               number: 80
+   - host: produccion.curso.com
+     http:
+       paths:
+       - path: /blog
+         pathType: Prefix
+         backend:
+           service:
+             name: blog
+             port:
+               number: 8080
+       - path: /web
+         pathType: Prefix
+         backend:
+           service:
+             name: web
+             port:
+               number: 80
