@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: log-daemonset
+spec:
+  selector:
+    matchLabels:
+      name: log 
+  template:
+    metadata:
+      labels:
+        name: log
+    spec:
+      containers:
+      - name: log
+        image: logstash:8.4.1

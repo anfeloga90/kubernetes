@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-job1
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: job1
+            image: alpine   
+            command: ["sh","-c"]
+            args: ["echo Me ejecuto en este momento -- $(date)"]
+          restartPolicy: Never

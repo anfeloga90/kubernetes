@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job1
+spec:
+  template:
+    spec:
+      containers:
+      - name: job1
+        image: alpine   
+        command: ["sh","-c"]
+        args: ["echo Estas en la maquina con el nombre $(uname -n)"]
+      restartPolicy: Never
